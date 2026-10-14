@@ -4,11 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atividade de Estoque</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Atividade de Gestão de Estoque</h1>
-    <p>Abra o console do navegador (F12) para ver os resultados das questões.</p>
+    <div class="conteudo">
+        <h1>Gestão de Estoque</h1>
+        <p>Atividade de arrays em JavaScript.</p>
+        <p>Clique no botão para ver os resultados das questões.</p>
 
+        <button onclick="mostrarResultados()">Mostrar resultados</button>
+        <pre id="resultado"></pre>
+    </div>
+
+    <script>
+        // Mostra na página os mesmos resultados do console.
+        let mensagens = [];
+        let consoleOriginal = console.log;
+
+        console.log = function (...valores) {
+            consoleOriginal(...valores);
+            mensagens.push(valores.map(valor => {
+                if (typeof valor === 'object') {
+                    return JSON.stringify(valor, null, 2);
+                }
+                return String(valor);
+            }).join(' '));
+        };
+
+        function mostrarResultados() {
+            document.getElementById('resultado').textContent = mensagens.join('\n\n');
+        }
+    </script>
     <script src="estoque.js"></script>
 </body>
 </html>
